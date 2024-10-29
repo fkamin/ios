@@ -2,10 +2,10 @@ import SwiftUI
 
 struct CardView: View {
     
-    let emoji : String
+    let emoji: String
     
     @Binding var backgroundColor: Color
-    @State var isVisible: Bool = true
+    @State var isVisible: Bool = false
     
     var body: some View {
         ZStack {
@@ -15,6 +15,7 @@ struct CardView: View {
                     .stroke(.blue)
                     .background(Color(.white))
                     .font(.largeTitle)
+                    .cornerRadius(12)
                 Text(emoji)
                     .font(.system(size: 60))
                     
@@ -24,6 +25,7 @@ struct CardView: View {
                     .stroke(backgroundColor, lineWidth: 2)
                     .font(.largeTitle)
                     .background(backgroundColor)
+                    .cornerRadius(12)
             }
             .opacity(!isVisible ? 1.0 : 0.0)
         }.onTapGesture(perform: {
@@ -33,5 +35,5 @@ struct CardView: View {
 }
 
 //#Preview {
-//    CardView(emoji: String, isVisible: Bool)
+//    CardView(emoji: "🇲🇰", backgroundColor: Binding<Color.white>, isVisible: false)
 //}

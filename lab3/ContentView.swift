@@ -3,15 +3,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis  = ["🇵🇸","🇮🇱", "🇯🇴", "🇺🇸", "🇸🇾"]
-    var emojis2 = ["🐦","🐶", "🐱", "🐭", "🐸", "🐮", "🐷"]
-    var emojis3 = ["🚗","🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🚜"]
+    var emojis  = ["😀", "😃", "😄", "😁"]
+    var emojis2 = ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🏐"]
+    var emojis3 = ["🇨🇱", "🇧🇫", "🇨🇮", "🇹🇩", "🇮🇪", "🇰🇿", "🇨🇲", "🇯🇴"]
     
-    
-    
-    @State
-    var cardCount: Int = 7
-    @State var opacity: Double = 1;
+    @State var cardCount: Int = 4
+    @State var opacity: Double = 0;
     
     @State var currentThemeNumber: Int = 0
     @State var currentBackgroundColor: Color = .red
@@ -21,7 +18,7 @@ struct ContentView: View {
             Text("Memo")
                 .fontWeight(.bold)
                 .padding()
-            ScrollView{
+            ScrollView {
                 items
             }
             
@@ -38,48 +35,43 @@ struct ContentView: View {
 //                }.frame(minWidth: 150, minHeight: 50)
 //                    .opacity(opacity)
 //            }
+            
         }
         .padding()
         
     }
     
-    func adjustCardNumber(by offset: Int, symbol: String) -> Void{
-        if(cardCount > 10 || cardCount < 2){
+    func adjustCardNumber(by offset: Int, symbol: String) -> Void {
+        if (cardCount > 10 || cardCount < 2) {
             return;
         }
         cardCount = symbol == "-" ? cardCount - 2 : cardCount + 2
     }
     
-    func GetEmojisArray() -> Array<String>{
-        
-        if(currentThemeNumber == 0){
+    func GetEmojisArray() -> Array<String> {
+        if (currentThemeNumber == 0) {
             return emojis.shuffled();
-        }
-        else if(currentThemeNumber == 1){
+        } else if (currentThemeNumber == 1) {
             return emojis2.shuffled()
         }
         return emojis3.shuffled();
     }
     
     
-    var items: some View{
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
+    var items: some View {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
             let emojisArray = GetEmojisArray()
             
-            ForEach(0..<emojisArray.count, id: \.self){
-                i in
-                CardView(emoji: emojisArray[i],
-                         backgroundColor: $currentBackgroundColor)
+            ForEach(0..<emojisArray.count, id: \.self) { i in
+                CardView(emoji: emojisArray[i], backgroundColor: $currentBackgroundColor)
                     .aspectRatio(2/3, contentMode: .fit)
-                
-                //metoda pobierajaca dobry array
             }
         }
     }
     
     var buttons: some View {
         HStack(alignment: .center){
-            ThemeButton(buttonLabel: "Motyw 1", buttonImageName: "pencil",
+            ThemeButton(buttonLabel: "Motyw 1", buttonImageName: "face.smiling",
                         themeNumber: $currentThemeNumber,
                         ownNumber: 0,
                         themeColor: $currentBackgroundColor,
@@ -87,17 +79,17 @@ struct ContentView: View {
                         
             )
             Spacer()
-            ThemeButton(buttonLabel: "Motyw 2", buttonImageName: "eraser",
+            ThemeButton(buttonLabel: "Motyw 2", buttonImageName: "shuffle.circle",
                         themeNumber: $currentThemeNumber,
                         ownNumber: 1,
                         themeColor: $currentBackgroundColor,
-            ownColor: .blue)
+                        ownColor: .blue)
             Spacer()
             ThemeButton(buttonLabel: "Motyw 3", buttonImageName: "square.and.arrow.down.on.square",
                         themeNumber: $currentThemeNumber,
                         ownNumber: 2,
                         themeColor: $currentBackgroundColor,
-                ownColor: .black)
+                        ownColor: .green)
         
         }
     }
