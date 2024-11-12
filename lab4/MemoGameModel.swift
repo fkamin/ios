@@ -22,7 +22,7 @@ struct MemoGameModel<CardContent: Equatable> {
     }
     
     mutating func shuffleCards() {
-        cards.shuffled()
+        self.cards = cards.shuffled()
     }
     
     struct Card: Equatable, Identifiable {
