@@ -3,9 +3,9 @@ import Foundation
 struct MemoGameModel<CardContent: Equatable> {
     private(set) var mainCard: Card? = nil
     private(set) var cards: Array<Card>
+    private(set) var score = 0
     
-    init(numberOfCards: Int, cardContentFactory: (Int)-> CardContent)
-    {
+    init(numberOfCards: Int, cardContentFactory: (Int)-> CardContent) {
         cards = []
         let cardNumber = Int.random(in: 0..<numberOfCards)
         for i in 0 ..< numberOfCards{
@@ -18,7 +18,7 @@ struct MemoGameModel<CardContent: Equatable> {
         }
     }
     
-    func selectCard(card: Card){
+    func selectCard(card: Card) {
         cards.randomElement()
     }
     
@@ -52,9 +52,12 @@ struct MemoGameModel<CardContent: Equatable> {
                 if currentCardNumber == mainCardNumber {
                     if let cardIndex = index(card: card) {
                         cards[cardIndex].foundMatch = true
+                        self.mainCard?.foundMatch = true
                     }
                     changeVisible()
+                    score += 10
                 }
+                score -= 1
             }
         }
     

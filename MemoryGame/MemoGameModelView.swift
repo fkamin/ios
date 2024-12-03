@@ -16,7 +16,7 @@ class MemoGameViewModel: ObservableObject {
     @Published
     private var model = generateMemoGameModel()
     
-    private static func generateMemoGameModel() -> MemoGameModel<String>{
+    private static func generateMemoGameModel() -> MemoGameModel<String> {
         return MemoGameModel<String>(numberOfCards: currentTab.count){
             index in if currentTab.indices.contains(index){
                 currentTab[index]
